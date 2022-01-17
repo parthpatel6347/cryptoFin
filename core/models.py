@@ -3,7 +3,14 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    email = models.EmailField(verbose_name="email", max_length=255, unique=True)
     cash = models.FloatField(default=10000)
+
+    REQUIRED_FIELDS = ["username", "first_name", "last_name"]
+    USERNAME_FIELD = "email"
+
+    def get_username(self):
+        return self.email
 
 
 class Transaction(models.Model):
