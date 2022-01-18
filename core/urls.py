@@ -6,4 +6,5 @@ urlpatterns = [
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.authtoken")),
     path("wallet/", views.get_user_wallet),
+    path("transact/", views.TransactionCreate.as_view()),
 ]

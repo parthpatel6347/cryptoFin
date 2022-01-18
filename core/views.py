@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+from rest_framework import generics
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
@@ -9,7 +10,7 @@ from .models import *
 from django.db.models import Sum, F
 
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, TransactionSerializer
 
 
 # class RegisterView(APIView):
@@ -18,6 +19,10 @@ from .serializers import UserSerializer
 #         serializer.is_valid(raise_exception=True)
 #         serializer.save()
 #         return Response(serializer.data)
+
+
+class TransactionCreate(generics.CreateAPIView):
+    serializer_class = TransactionSerializer
 
 
 def get_user_wallet(request):
