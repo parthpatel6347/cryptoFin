@@ -7,20 +7,36 @@ export const Main = styled.div`
     flex-direction: column;
     align-items: center;
 `
+export const CoinDataCointainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 1000px;
+    background-color: ${props => props.theme.colors.bgLight};
+    border-radius: 15px;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+`
 
 export const ChartContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 90%;
-    max-width: 800px;
     align-items: center;
+    margin-bottom:25px;
+    width: 100%;
+    padding:0 20px;
 `
 
 export const InfoMain = styled.div`
     display: flex;
-    width: 90%;
-    max-width: 800px;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: space-around;
+    box-sizing: border-box;
+    padding-bottom: 15px;
+    margin-bottom:20px;
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+
 `
 
 export const InfoRight = styled.div`
@@ -100,23 +116,25 @@ const ChangePercent = styled.div`
     margin-top: 4px;
 `
 export const ChangePercentNeg = styled(ChangePercent)`
-    background-color: red;
+    background-color: ${(props) => props.theme.colors.red};
 `
 
 export const ChangePercentPos = styled(ChangePercent)`
-    background-color: green;
+    background-color: ${(props) => props.theme.colors.green};
 `
 
 export const ChangePos = styled.span`
     font-size: 15px;
     font-weight: 600;
-    color: green;
+    color: ${(props) => props.theme.colors.green};
+    margin-top:4px;
+    margin-left:5px;
 `
 
 export const ChangeNeg = styled.div`
     font-size: 15px;
     font-weight: 600;
-    color: red;
+    color: ${(props) => props.theme.colors.red};
     margin-top:4px;
     margin-left:5px;
 `
@@ -135,14 +153,21 @@ const ChartButton=styled.button`
     outline: none;
     border:1px solid gray;
     color:white;
-    height:30px;
+    height:35px;
     width:50px;
-    background-color: ${props => props.active ? "blue" : "black"};
+    font-size:14px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    background-color: ${props => props.active ? "#156787" : "#19343E" };
+    margin-top:10px;
+    &:hover{
+        background-color: ${props => props.active ? "#156787" : "#264D5D" };
+    }
 `
 
 export const ChartButtonLeft = styled(ChartButton)`
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    border-right: none;
 `
 export const ChartButtonMid = styled(ChartButton)`
 
@@ -150,11 +175,13 @@ export const ChartButtonMid = styled(ChartButton)`
 export const ChartButtonRight = styled(ChartButton)`
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    border-left:none;
 `
 
 export const Wallet = styled.div`
     width:90%;
-    max-width:600px;
+    max-width:1000px;
+    margin-bottom:75px;
 `
 export const WalletTitle = styled.div`
     font-size:26px;
@@ -165,18 +192,19 @@ export const WalletTitle = styled.div`
 
 export const WalletCoin = styled.div`
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     width:100%;
     color:white;
 `
 
 export const WalletInfoMain=styled.div`
-    grid-column: span 2;
+    grid-column: span 3;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border:1px solid darkgray;
-    padding:15px 7%;
+    background-color: ${(props) => props.theme.colors.bgLight};
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    padding:15px 5%;
     border-radius:15px;
     box-sizing:border-box;
     margin-right:10px

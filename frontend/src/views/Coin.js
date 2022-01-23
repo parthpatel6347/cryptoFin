@@ -7,7 +7,7 @@ import {Modal} from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
 import Transaction from './Transaction';
 import authContext from '../context/auth/authContext';
-import { ChartContainer, CoinLogo, InfoLeft, InfoMain, InfoRight, Main, CoinTitle, CoinTitleText, CoinSymbolText, Info, LabelText, InfoText, WebLink, Price, ChangeNeg, ChangePos, ChangePercentNeg, ChangePercentPos, InfoTextRight, ChartButtonLeft, ChartButtonRight, ChartButtonMid, ButtonGroup, WalletCoin, Wallet, WalletInfoMain, WalletCoinTitle, WalletCoinImg, WalletCoinName, WalletCoinSymbol, WalletCoinNameText, WalletCoinAmount, CoinAmount, TotalAmount, CustomButton, WalletTitle } from '../styles/CoinStyles';
+import { ChartContainer, CoinLogo, InfoLeft, InfoMain, InfoRight, Main, CoinTitle, CoinTitleText, CoinSymbolText, Info, LabelText, InfoText, WebLink, Price, ChangeNeg, ChangePos, ChangePercentNeg, ChangePercentPos, InfoTextRight, ChartButtonLeft, ChartButtonRight, ChartButtonMid, ButtonGroup, WalletCoin, Wallet, WalletInfoMain, WalletCoinTitle, WalletCoinImg, WalletCoinName, WalletCoinSymbol, WalletCoinNameText, WalletCoinAmount, CoinAmount, TotalAmount, CustomButton, WalletTitle, CoinDataCointainer } from '../styles/CoinStyles';
 import { Fragment } from 'react';
 import { formatUSD, formatUSDWhole } from '../utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -71,6 +71,7 @@ function Coin(props) {
         <Main>
         {coinLoading === false && (
             <Fragment>
+            <CoinDataCointainer>
             <InfoMain>
                 <InfoLeft>
                     <CoinTitle>
@@ -162,7 +163,9 @@ function Coin(props) {
                     <ChartButtonRight name="chart" onClick={()=>setChart(30)} active={chart === 30}>30D</ChartButtonRight>
                 </ButtonGroup>
                 </ChartContainer>
+                
             )}
+            </CoinDataCointainer>
             <Wallet>
             <WalletTitle>Wallet</WalletTitle>
             <WalletCoin>

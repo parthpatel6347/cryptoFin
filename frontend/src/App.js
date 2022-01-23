@@ -9,12 +9,17 @@ import Coin from './views/Coin';
 import Dashboard from './views/Dashboard';
 import Portfolio from './views/Portfolio';
 import PrivateRoute from './views/PrivateRoute';
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
+
+
 
 
 
 const App = () => {
 
   return (
+    <ThemeProvider theme={theme}>
     <AuthState>
         <Router>
         <Fragment>
@@ -34,6 +39,7 @@ const App = () => {
           </Fragment>
         </Router>
       </AuthState>
+      </ThemeProvider>
   );
 };
 

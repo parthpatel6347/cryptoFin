@@ -42,7 +42,7 @@ function Dashboard(props) {
                 <CoinImage src={coin.image}/>
                 <CoinMainInner>
                   <span>{coin.name}</span>
-                  <Symbol>{coin.symbol}</Symbol>
+                  <Symbol>{coin.symbol.toUpperCase()}</Symbol>
                 </CoinMainInner>
               </CoinMain> 
                <GridITem>{formatUSD.format(coin.current_price)}</GridITem>

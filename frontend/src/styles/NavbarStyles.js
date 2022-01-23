@@ -7,14 +7,14 @@ export const NavbarContainer = styled.div`
     height: 55px;
     align-items: center;
     width: 100%;
-    background-color: #0C0E10;
+    background-color: black;
     justify-content: center;
 `
 
 export const NavbarInner = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 80%;
 `
 
 export const NavLinksContainer = styled.div`
