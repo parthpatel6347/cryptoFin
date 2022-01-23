@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Chart } from 'react-chartjs-2';
 import 'chart.js/auto';
 import {Modal} from 'react-bootstrap'
@@ -25,6 +25,7 @@ function Coin(props) {
     const [chartPoints, setChartPoints] = useState({})
     const [chart, setChart] = useState(1)
     const [userCoin, setUserCoin] = useState({})
+    const [chartBG, setChartBG] = useState()
 
     const handleClose = () => setIsHidden(true)
     const handleShow = () => setIsHidden(false)
@@ -57,6 +58,7 @@ function Coin(props) {
         }
     },[wallet, walletLoading])
 
+    const chartRef = useRef(null)
 
     useEffect(()=>{
         // get chart data
@@ -66,6 +68,27 @@ function Coin(props) {
             setLoadingChart(false)
         })
     },[chart])
+
+    useEffect(()=>{
+        if (chartRef.current){
+                const ctx = chartRef.current.canvas.getContext("2d");
+                let gradient = ctx.createLinearGradient(0,0,0,350);
+                gradient.addColorStop(0,"rgba(103,116 ,227, 0.5)");
+                gradient.addColorStop(1,"rgba(103,116 ,227, 0.05)");
+                setChartBG(gradient)
+                chartRef.current.update()
+            }
+    },[chart])
+
+
+    const getChartData = () => {
+        if (!coinLoading && !loadingChart ){
+                return 
+           
+
+            
+        }
+    }
 
     return (
         <Main>
@@ -117,23 +140,25 @@ function Coin(props) {
                     )}
                 </InfoRight>
             </InfoMain>
-            {loadingChart === false && (
+            {loadingChart === false &&(
                 <ChartContainer>
                 <Chart
+                    ref={chartRef}
                     type='line'
                     data={{
-                        labels:chartPoints.prices.map(datapoint =>  new Date(datapoint[0]).toLocaleString()),
-                        datasets:[{
-                            label:"USD",
-                            data: chartPoints.prices.map(datapoint =>  datapoint[1]),
-                            borderColor: 'rgb(75, 192, 192)',
-                            fill:true,
-                            backgroundColor: 'rgba(75, 192, 192,0.7)',
-                            tension: 0.3,
-                            pointRadius:1,
-                            pointHitRadius:6,
-                        }]
-                    }}
+                    labels:chartPoints.prices.map(datapoint =>  new Date(datapoint[0]).toLocaleString()),
+                    datasets:[{
+                        label:"USD",
+                        data: chartPoints.prices.map(datapoint =>  datapoint[1]),
+                        borderColor: 'rgb(103, 116, 227)',
+                        borderWidth:2,
+                        fill:true,
+                        backgroundColor:chartBG? chartBG : 'rgba(103, 116, 227, 0.2)',
+                        tension: 0.3,
+                        pointRadius:0,
+                        pointHitRadius:6,
+                    }]
+                }}
                     options={{
                         scales:{
                             x:{
@@ -169,7 +194,7 @@ function Coin(props) {
             <Wallet>
             <WalletTitle>Wallet</WalletTitle>
             <WalletCoin>
-            {userCoin !== undefined && (
+            {userCoin && userCoin.holding_qty !== undefined && (
                     <WalletInfoMain>
                         <WalletCoinTitle>
                             <WalletCoinImg src={coinData.image.small}/>

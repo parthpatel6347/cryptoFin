@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState,useContext } from 'react';
 import { Chart } from 'react-chartjs-2'
 import 'chart.js/auto';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+
 
 import authContext from '../context/auth/authContext';
-import { BalanceContainer, ChartContainer, CoinBalance, CoinContainer, ContentContainer, HeaderTitle, InfoContainer, InfoContent, InfoHeader, Main, PLContainer, PLPctg, PLUsd, UsdBalance, ValuationContainer, WalletCoinTitle } from '../styles/PortfolioStyles';
+import { BalanceContainer, ChartContainer, ChartInner, CoinBalance, CoinContainer, ContentContainer, HeaderTitle, InfoContainer, InfoContent, InfoGreen, InfoHeader, InfoRed, Main, PLContainer, PLPctg, PLPctgGreen, PLPctgRed, PLUsd, PLUsdGreen, PLUsdRed, UsdBalance, ValuationContainer, WalletCoinTitle } from '../styles/PortfolioStyles';
 import { formatUSD } from '../utils';
 import { WalletCoinImg, WalletCoinSymbol } from '../styles/CoinStyles';
 
@@ -91,6 +94,7 @@ function Portfolio(props) {
     return (<Main>
         {loading === false && loadingCoinData === false && walletLoading === false &&(
         <ContentContainer>
+        <HeaderTitle>Profit & Loss Summary</HeaderTitle>
         <ValuationContainer>
             <InfoContainer>
                 <InfoHeader>Initial Investment</InfoHeader>
@@ -103,24 +107,27 @@ function Portfolio(props) {
             <InfoContainer>
                 <InfoHeader>Profit/Loss</InfoHeader>
                 {currentValuation() - investmentAmount() < 0 ? (
-                    <InfoContent style={{color:"red"}}>
+                    <InfoRed>
                     {formatUSD.format(currentValuation() - investmentAmount())}
                     <span style={{marginLeft:"5px"}}>({percentPL().toFixed(2)}%)</span>
-                    </InfoContent>
+                    </InfoRed>
                 ) : (
-                    <InfoContent style={{color:"green"}}>
+                    <InfoGreen>
                     {formatUSD.format(currentValuation() - investmentAmount())}
                     <span style={{marginLeft:"5px"}}>({percentPL().toFixed(2)}%)</span>
-                    </InfoContent>                )}
+                    </InfoGreen>                )}
             </InfoContainer>
         </ValuationContainer>
         <HeaderTitle>Portfolio Allocation</HeaderTitle>
         <ChartContainer>
-            <Chart
-                type='doughnut'
-                data={genChartData()}
-            />
+            <ChartInner>
+                <Chart
+                    type='doughnut'
+                    data={genChartData()}
+                />
+            </ChartInner>
         </ChartContainer>
+        <HeaderTitle>Wallet</HeaderTitle>
             {wallet.map(userCoin => (
                 coinList.map(coin => coin.id === userCoin.symbol && (
                     <CoinContainer>
@@ -140,14 +147,14 @@ function Portfolio(props) {
                             {coin.current_price - userCoin.avg_cost < 0 ? (
                                 <PLContainer>
                                 <InfoHeader>Profit/Loss</InfoHeader>
-                                <PLUsd style={{color:"red"}}>{formatUSD.format(userCoin.holding_qty * (coin.current_price - userCoin.avg_cost))}</PLUsd>
-                                <PLPctg style={{color:"red"}}>{((coin.current_price / userCoin.avg_cost * 100) - 100).toFixed(2)}%</PLPctg>
+                                <PLUsdRed>{formatUSD.format(userCoin.holding_qty * (coin.current_price - userCoin.avg_cost))}</PLUsdRed>
+                                <PLPctgRed><FontAwesomeIcon icon={faAngleDown} style={{marginRight:"3px"}}/>{Math.abs(((coin.current_price / userCoin.avg_cost * 100) - 100).toFixed(2))}%</PLPctgRed>
                                 </PLContainer>
                             ) : (
                                 <PLContainer>
                                 <InfoHeader>Profit/Loss</InfoHeader>
-                                <PLUsd style={{color:"green"}}>{formatUSD.format(userCoin.holding_qty * (coin.current_price - userCoin.avg_cost))}</PLUsd>
-                                <PLPctg style={{color:"green"}}>{((coin.current_price / userCoin.avg_cost * 100) - 100).toFixed(2)}%</PLPctg>
+                                <PLUsdGreen>{formatUSD.format(userCoin.holding_qty * (coin.current_price - userCoin.avg_cost))}</PLUsdGreen>
+                                <PLPctgGreen><FontAwesomeIcon icon={faAngleUp} style={{marginRight:"3px"}}/>{((coin.current_price / userCoin.avg_cost * 100) - 100).toFixed(2)}%</PLPctgGreen>
                                 </PLContainer>
                             )}
                     </CoinContainer>

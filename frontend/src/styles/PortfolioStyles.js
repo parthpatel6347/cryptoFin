@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const Main = styled.div`
-    margin-top: 30px;
+    margin-top: 10px;
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 40px;
 `
 
 export const ContentContainer = styled.div`
@@ -17,7 +18,8 @@ export const ContentContainer = styled.div`
 `
 
 export const ValuationContainer = styled.div`
-    border:1px solid gray;
+    background-color: ${(props) => props.theme.colors.bgLight};
+    border: 1px solid rgba(128, 128, 128, 0.1);
     display: flex;
     border-radius: 15px;
     padding:20px;
@@ -42,20 +44,33 @@ export const InfoContent = styled.div`
 
 
 export const HeaderTitle = styled.div`
-    font-size: 26px;
+    font-size: 20px;
     color: white;
-    margin-top: 30px;
-    margin-bottom:15px;
+    margin-top: 35px;
+    margin-bottom:5px;
+    align-self: flex-start;
+    color: #BCBCBC;
+    margin-left:15px;
 `
 export const ChartContainer = styled.div`
-    max-width: 500px;
+    background-color: ${(props) => props.theme.colors.bgLight};
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    border-radius: 15px;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    padding:20px 0;
 `
+export const ChartInner = styled.div`
+    max-width: 500px;
+    width: 100%;
+`
+
 export const CoinContainer = styled.div`
+    background-color: ${(props) => props.theme.colors.bgLight};
     color:white;
-    border:1px solid gray;
+    border: 1px solid rgba(128, 128, 128, 0.1);
     display: grid;
     width: 100%;
     border-radius:15px;
@@ -63,7 +78,7 @@ export const CoinContainer = styled.div`
     padding: 15px 25px;
     margin-bottom: 15px;
     grid-template-columns:repeat(4, 1fr);
-    max-width: 600px;
+    max-width: 800px;
 `
 export const WalletCoinTitle=styled.div`
     align-items: center;
@@ -84,8 +99,9 @@ export const CoinBalance = styled.div`
 `
 
 export const UsdBalance = styled.div`
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 500;
+    color: #BBBBBB;
 `
 
 export const PLContainer = styled.div`
@@ -101,6 +117,29 @@ export const PLUsd = styled.div`
 `
 
 export const PLPctg = styled.div`
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 500;
+`
+
+export const InfoRed = styled(InfoContent)`
+    color:${props => props.theme.colors.red}
+`
+export const InfoGreen = styled(InfoContent)`
+    color:${props => props.theme.colors.green}
+`
+
+export const PLUsdGreen = styled(PLUsd)`
+    color:${props => props.theme.colors.green}
+`
+
+export const PLUsdRed = styled(PLUsd)`
+    color:${props => props.theme.colors.red}
+`
+
+export const PLPctgGreen = styled(PLPctg)`
+    color:${props => props.theme.colors.green}
+`
+
+export const PLPctgRed = styled(PLPctg)`
+    color:${props => props.theme.colors.red}
 `
