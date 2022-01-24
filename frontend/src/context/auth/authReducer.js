@@ -3,31 +3,31 @@
 import { USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, WALLET_SUCCESS, WALLET_ERROR, LOGOUT } from '../types';
 
 export default (state, action) => {
-    switch(action.type){
+    switch (action.type) {
         case USER_LOADED:
-            return{
+            return {
                 ...state,
-                isAuthenticated:true,
-                user:action.payload,
-                loading:false
+                isAuthenticated: true,
+                user: action.payload,
+                loading: false
             };
         case REGISTER_SUCCESS:
-            return{
+            return {
                 ...state
             }
         case LOGIN_SUCCESS:
             localStorage.setItem("token", action.payload.auth_token);
-            return{
+            return {
                 ...state,
-                ...action.payload,
+                token: action.payload.auth_token,
                 isAuthenticated: true,
                 loading: false,
             };
         case WALLET_SUCCESS:
-            return{
+            return {
                 ...state,
-                wallet:action.payload,
-                walletLoading:false
+                wallet: action.payload,
+                walletLoading: false
             }
         case AUTH_ERROR:
         case REGISTER_FAIL:
@@ -40,12 +40,12 @@ export default (state, action) => {
                 loading: false,
                 user: null,
                 error: action.payload,
-              };
+            };
         case WALLET_ERROR:
-            return{
+            return {
                 ...state,
-                error:action.payload,
-                walletLoading:false
+                error: action.payload,
+                walletLoading: false
             }
         case LOGOUT:
             localStorage.removeItem("token");

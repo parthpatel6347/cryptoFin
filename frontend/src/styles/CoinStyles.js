@@ -157,10 +157,10 @@ const ChartButton=styled.button`
     width:50px;
     font-size:14px;
     border: 1px solid rgba(128, 128, 128, 0.4);
-    background-color: ${props => props.active ? "#156787" : "#19343E" };
+    background-color: ${props => props.active ? "#2A37A4" : "#202841" };
     margin-top:10px;
     &:hover{
-        background-color: ${props => props.active ? "#156787" : "#264D5D" };
+        background-color: ${props => props.active ? "#2A37A4" : "#323972" };
     }
 `
 
@@ -251,8 +251,13 @@ export const TotalAmount = styled.div`
 export const CustomButton = styled.div`
     outline: none;
     padding:10px 30px;
-    background-color: purple;
+    background-color: #3848CC;
     align-self: center;
     justify-self: center;
     border-radius:10px;
+    text-align:center;
+    &:hover{
+        cursor:pointer;
+        background-color: #485CFF;
+    }
 `

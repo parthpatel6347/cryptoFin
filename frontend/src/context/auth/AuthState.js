@@ -17,16 +17,16 @@ const setHeaderToken = (token) => {
 
 function AuthState(props) {
     const initialState = {
-        token:localStorage.getItem('token'),
-        isAuthenticated:null,
-        loading:true,
-        user:null,
-        error:null,
-        wallet:null,
-        walletLoading:true
+        token: localStorage.getItem('token'),
+        isAuthenticated: null,
+        loading: true,
+        user: null,
+        error: null,
+        wallet: null,
+        walletLoading: true
     }
 
-    const[state,dispatch] = useReducer(authReducer,initialState)
+    const [state, dispatch] = useReducer(authReducer, initialState)
 
     const loadUser = async () => {
         if (localStorage.token) {
@@ -34,61 +34,63 @@ function AuthState(props) {
         }
 
         axios.get('http://127.0.0.1:8000/api/auth/users/me/')
-        .then(res => {
-            dispatch({type:USER_LOADED, payload:res.data})
+            .then(res => {
+                dispatch({ type: USER_LOADED, payload: res.data })
             })
-        .catch(err => {
-            dispatch({type:AUTH_ERROR, payload:err.response.data})
-        })
+            .catch(err => {
+                dispatch({ type: AUTH_ERROR, payload: err.response.data })
+            })
     }
 
     const register = async (formData) => {
 
-        axios.post('http://127.0.0.1:8000/api/auth/users/', formData)
-        .then((res) => {
-            dispatch({type:REGISTER_SUCCESS, payload:res.data})
-        })
-        .catch((err) => {
-            dispatch({type:REGISTER_FAIL, payload:err.response.data})
-    });
+        return axios.post('http://127.0.0.1:8000/api/auth/users/', formData)
+            .then((res) => {
+                dispatch({ type: REGISTER_SUCCESS, payload: res.data })
+                return "success"
+            })
+            .catch((err) => {
+                dispatch({ type: REGISTER_FAIL, payload: err.response.data })
+                return "error"
+            });
     }
 
     const login = async (formData) => {
 
         axios.post("http://localhost:8000/api/auth/token/login", formData)
-    .then((res) => {
-        dispatch({type:LOGIN_SUCCESS, payload: res.data });
-        loadUser();
-    })
-    .catch((err) => {
-        dispatch({ type: LOGIN_FAIL, payload: err.response.data});
-    });
+            .then((res) => {
+                dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+                loadUser();
+            })
+            .catch((err) => {
+                dispatch({ type: LOGIN_FAIL, payload: err.response.data });
+            });
     };
 
     const getWallet = async (userid) => {
-        
+
         axios.get(`http://127.0.0.1:8000/api/wallet/?user=${userid}`)
-        .then(res => {
-            dispatch({type:WALLET_SUCCESS, payload:res.data})
-        })
-        .catch(err => {
-            dispatch({type:WALLET_ERROR, payload:err.response.data})
-        })
-    }   
+            .then(res => {
+                dispatch({ type: WALLET_SUCCESS, payload: res.data })
+            })
+            .catch(err => {
+                dispatch({ type: WALLET_ERROR, payload: err.response.data })
+            })
+    }
 
     const logout = async () => {
         if (localStorage.token) {
             setHeaderToken(localStorage.token)
         }
         axios.post('http://localhost:8000/api/auth/token/logout', localStorage.token)
-        .then(res => {
-            dispatch({ type: LOGOUT });
-        })
-        
-      };
+            .then(res => {
+                dispatch({ type: LOGOUT });
+            })
+
+    };
 
     return (
-        <AuthContext.Provider value={{...state, loadUser, register, login, getWallet, logout}}>
+        <AuthContext.Provider value={{ ...state, loadUser, register, login, getWallet, logout }}>
             {props.children}
         </AuthContext.Provider>
     );

@@ -79,6 +79,12 @@ export const CoinContainer = styled.div`
     margin-bottom: 15px;
     grid-template-columns:repeat(4, 1fr);
     max-width: 800px;
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+        color: white;
+        background-color: ${(props) => props.theme.colors.bgHover};
+    }
 `
 export const WalletCoinTitle=styled.div`
     align-items: center;

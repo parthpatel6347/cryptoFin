@@ -58,8 +58,6 @@ function Coin(props) {
         }
     },[wallet, walletLoading])
 
-    const chartRef = useRef(null)
-
     useEffect(()=>{
         // get chart data
         axios.get(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${chart}`)
@@ -69,26 +67,6 @@ function Coin(props) {
         })
     },[chart])
 
-    useEffect(()=>{
-        if (chartRef.current){
-                const ctx = chartRef.current.canvas.getContext("2d");
-                let gradient = ctx.createLinearGradient(0,0,0,350);
-                gradient.addColorStop(0,"rgba(103,116 ,227, 0.5)");
-                gradient.addColorStop(1,"rgba(103,116 ,227, 0.05)");
-                setChartBG(gradient)
-                chartRef.current.update()
-            }
-    },[chart])
-
-
-    const getChartData = () => {
-        if (!coinLoading && !loadingChart ){
-                return 
-           
-
-            
-        }
-    }
 
     return (
         <Main>
@@ -143,17 +121,16 @@ function Coin(props) {
             {loadingChart === false &&(
                 <ChartContainer>
                 <Chart
-                    ref={chartRef}
                     type='line'
                     data={{
                     labels:chartPoints.prices.map(datapoint =>  new Date(datapoint[0]).toLocaleString()),
                     datasets:[{
                         label:"USD",
                         data: chartPoints.prices.map(datapoint =>  datapoint[1]),
-                        borderColor: 'rgb(103, 116, 227)',
+                        borderColor: 'rgb(72, 92, 255)',
                         borderWidth:2,
                         fill:true,
-                        backgroundColor:chartBG? chartBG : 'rgba(103, 116, 227, 0.2)',
+                        backgroundColor:'rgba(72, 92, 255, 0.15)',
                         tension: 0.3,
                         pointRadius:0,
                         pointHitRadius:6,

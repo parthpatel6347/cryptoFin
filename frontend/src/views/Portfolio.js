@@ -4,12 +4,16 @@ import { Chart } from 'react-chartjs-2'
 import 'chart.js/auto';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+
 
 
 import authContext from '../context/auth/authContext';
 import { BalanceContainer, ChartContainer, ChartInner, CoinBalance, CoinContainer, ContentContainer, HeaderTitle, InfoContainer, InfoContent, InfoGreen, InfoHeader, InfoRed, Main, PLContainer, PLPctg, PLPctgGreen, PLPctgRed, PLUsd, PLUsdGreen, PLUsdRed, UsdBalance, ValuationContainer, WalletCoinTitle } from '../styles/PortfolioStyles';
 import { formatUSD } from '../utils';
 import { WalletCoinImg, WalletCoinSymbol } from '../styles/CoinStyles';
+
+let colors = ["#ADADAD", "#5663BC", "#00ABE5", "#51B994", "#8DB35A", "#F56303", "#D21E24", "#00D194","#E6007A", "#328332", "#FF9900"]
 
 
 function Portfolio(props) {
@@ -70,11 +74,12 @@ function Portfolio(props) {
                 {
                     label:"USD",
                     data:[user.cash],
-                    backgroundColor:['rgba(255, 99, 132, 0.4)',
-                    'rgba(54, 162, 235, 0.4)',
-                    'rgba(255, 206, 86, 0.4)'],
-                    borderWidth:1,
-                    hoverOffset: 2,
+                    backgroundColor:colors.map(color=>color),
+                    borderColor:"#191E20",
+                    borderWidth:5,
+                    hoverOffset: 5,
+                    borderRadius:5,
+                    cutout:"70%"
                 }
             ]
         }
@@ -85,7 +90,6 @@ function Portfolio(props) {
                 let curCoin = coinList.filter(coin => coin.id === current.symbol)[0]
                 chartData.labels.push(curCoin.name)
                 chartData.datasets[0].data.push(current.holding_qty * curCoin.current_price)
-                console.log(chartData)               
             });
         }
         return chartData
@@ -130,7 +134,7 @@ function Portfolio(props) {
         <HeaderTitle>Wallet</HeaderTitle>
             {wallet.map(userCoin => (
                 coinList.map(coin => coin.id === userCoin.symbol && (
-                    <CoinContainer>
+                    <CoinContainer as={Link} to={`/coins/${coin.id}`} key={coin.id}>
                     <WalletCoinTitle>
                             <WalletCoinImg src={coin.image}/>
                                 <WalletCoinSymbol>{coin.name}</WalletCoinSymbol>

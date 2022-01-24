@@ -1,6 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import authContext from '../../context/auth/authContext';
+import { ErrorText, FormContainer, HeaderText, Main, SubmitButton } from '../../styles/Login.Styles';
+import { Form } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom';
 
 
 const Register = (props) => {
@@ -10,13 +12,24 @@ const Register = (props) => {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [errors, setErrors] = useState([])
 
-  const {register, error, isAuthenticated} = useContext(authContext)
+  let navigate = useNavigate();
+
+  const { register, error, isAuthenticated } = useContext(authContext)
 
   useEffect(() => {
     if (isAuthenticated) {
       window.location.replace('http://localhost:3000/dashboard');
-    } 
+    }
+
+    if (error) {
+      let e = []
+      for (let key in error) {
+        error[key].forEach(err => e.push(err))
+      }
+      setErrors(e)
+    }
   }, [error, isAuthenticated, props]);
 
   const onSubmit = e => {
@@ -29,77 +42,90 @@ const Register = (props) => {
       password: password1,
       re_password: password2,
       last_name: lastName,
-  }).then(res => {
-    if(!error){
-      window.location.replace('http://localhost:3000/login');
-    }
-  })
-
+    }).then(res => {
+      if (res === "success") {
+        navigate('/login')
+      } else {
+        setFirstName('')
+        setLastName('')
+        setUsername('')
+        setEmail('')
+        setPassword1('')
+        setPassword2('')
+      }
+    })
   };
 
+
   return (
-    <div>
-      <h1>Signup</h1>
-      {error && <h2>Cannot signup with provided credentials</h2>}
-      <form onSubmit={onSubmit}>
-      <label htmlFor='firstName'>First Name:</label> <br />
-        <input
-          name='firstName'
-          type='text'
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-          required
-        />{' '}
-        <br />
-      <label htmlFor='lastName'>Last Name:</label> <br />
-        <input
-          name='lastName'
-          type='text'
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-          required
-        />{' '}
-        <br />
-        
-        <label htmlFor='email'>Email address:</label> <br />
-        <input
-          name='email'
-          type='email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />{' '}
-        <br />
-        <label htmlFor='username'>Username:</label> <br />
-        <input
-          name='username'
-          type='text'
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          required
-        />{' '}
-        <br />
-        <label htmlFor='password1'>Password:</label> <br />
-        <input
-          name='password1'
-          type='password'
-          value={password1}
-          onChange={e => setPassword1(e.target.value)}
-          required
-        />{' '}
-        <br />
-        <label htmlFor='password2'>Confirm password:</label> <br />
-        <input
-          name='password2'
-          type='password'
-          value={password2}
-          onChange={e => setPassword2(e.target.value)}
-          required
-        />{' '}
-        <br />
-        <input type='submit' value='Signup' />
-      </form>
-    </div>
+    <Main>
+      <FormContainer style={{ height: "unset" }}>
+        <HeaderText>Sign up</HeaderText>
+        {error && <ErrorText>{errors.map(err => <p key={err}>{err}</p>)}</ErrorText>}
+        <Form onSubmit={onSubmit}>
+          <Form.Group className='mb-3'>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              name='firstName'
+              type='text'
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+              required
+              placeholder="First Name"
+              autoComplete='off' />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              name='lastName'
+              type='text'
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+              required
+              placeholder="Last Name"
+              autoComplete='off' />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Email address</Form.Label>
+            <Form.Control onChange={e => setEmail(e.target.value)} type="email" name='email' value={email} required placeholder="Enter email" autoComplete='off' />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              name='username'
+              type='text'
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              required
+              placeholder="Username"
+              autoComplete='off' />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              name='password1'
+              type='password'
+              value={password1}
+              onChange={e => setPassword1(e.target.value)}
+              required
+              placeholder="Password"
+              autoComplete='off' />
+          </Form.Group>
+          <Form.Group className='mb-4'>
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              name='password2'
+              type='password'
+              value={password2}
+              onChange={e => setPassword2(e.target.value)}
+              required
+              placeholder="Confirm Password"
+              autoComplete='off' />
+          </Form.Group>
+          <SubmitButton type='submit'>Sign up</SubmitButton>
+        </Form>
+      </FormContainer>
+    </Main>
   );
 };
 
