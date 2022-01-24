@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { maxWidth } from "./size";
+
 
 
 export const NavbarContainer = styled.div`
@@ -16,6 +18,9 @@ export const NavbarInner = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 80%;
+    @media ${maxWidth.XXS}{
+        width: 90%;
+    }
 `
 
 export const NavLinksContainer = styled.div`
@@ -45,6 +50,9 @@ export const NavLink = styled(Link)`
     transition: color 0.2s linear;
     &:hover{
         color:#CECECE;
+    }
+    @media ${maxWidth.XXS}{
+        display: ${props => props.to === "/dashboard" ? "none" : ""};
     }
 `
 export const LogoutBtn = styled.div`

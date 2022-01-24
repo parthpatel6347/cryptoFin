@@ -172,19 +172,18 @@ function Coin(props) {
 
                                 )}
                             </CoinDataCointainer>
-
-                            {userCoin && userCoin.holding_qty !== undefined && (
-                                <Wallet>
-                                    <WalletTitle>Wallet</WalletTitle>
-                                    <WalletCoin>
-                                        <WalletInfoMain>
-                                            <WalletCoinTitle>
-                                                <WalletCoinImg src={coinData.image.small} />
-                                                <WalletCoinName>
-                                                    <WalletCoinSymbol>{(coinData.symbol).toUpperCase()}</WalletCoinSymbol>
-                                                    <WalletCoinNameText>{coinData.name}</WalletCoinNameText>
-                                                </WalletCoinName>
-                                            </WalletCoinTitle>
+                            <Wallet>
+                                <WalletTitle>Wallet</WalletTitle>
+                                <WalletCoin>
+                                    <WalletInfoMain>
+                                        <WalletCoinTitle>
+                                            <WalletCoinImg src={coinData.image.small} />
+                                            <WalletCoinName>
+                                                <WalletCoinSymbol>{(coinData.symbol).toUpperCase()}</WalletCoinSymbol>
+                                                <WalletCoinNameText>{coinData.name}</WalletCoinNameText>
+                                            </WalletCoinName>
+                                        </WalletCoinTitle>
+                                        {userCoin && userCoin.holding_qty !== undefined ? (
                                             <WalletCoinAmount>
                                                 <CoinAmount>
                                                     {(userCoin.holding_qty).toFixed(6)}
@@ -193,13 +192,22 @@ function Coin(props) {
                                                     {(formatUSD.format(userCoin.holding_qty * coinData.market_data.current_price.usd))}
                                                 </TotalAmount>
                                             </WalletCoinAmount>
-                                        </WalletInfoMain>
-                                        {isAuthenticated && (
-                                            <CustomButton onClick={handleShow}>Buy | Sell</CustomButton>
+                                        ) : (
+                                            <WalletCoinAmount>
+                                                <CoinAmount>
+                                                    0
+                                                </CoinAmount>
+                                                <TotalAmount>
+                                                    {(formatUSD.format(0))}
+                                                </TotalAmount>
+                                            </WalletCoinAmount>
                                         )}
-                                    </WalletCoin>
-                                </Wallet>
-                            )}
+                                    </WalletInfoMain>
+                                    {isAuthenticated && (
+                                        <CustomButton onClick={handleShow}>Trade</CustomButton>
+                                    )}
+                                </WalletCoin>
+                            </Wallet>
 
                             {isAuthenticated && !isHidden && (
                                 <Modal show={!isHidden} onHide={handleClose} centered>

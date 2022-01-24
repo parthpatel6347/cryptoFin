@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
 import { Modal } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import authContext from '../context/auth/authContext';
 import { NavbarContainer, NavbarInner, NavLinksContainer, NavLink, Title, LogoutBtn } from '../styles/NavbarStyles';
 import Logout from '../views/auth/Logout';

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { maxWidth } from "./size";
+
 
 export const Main = styled.div`
     margin-top: 30px;
@@ -16,6 +18,7 @@ export const CoinDataCointainer = styled.div`
     background-color: ${props => props.theme.colors.bgLight};
     border-radius: 15px;
     border: 1px solid rgba(128, 128, 128, 0.1);
+    
 `
 
 export const ChartContainer = styled.div`
@@ -36,20 +39,25 @@ export const InfoMain = styled.div`
     margin-bottom:20px;
     margin-top: 20px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.1);
-
+    @media ${maxWidth.XS}{
+        flex-direction: column;
+    }
 `
 
 export const InfoRight = styled.div`
     color: white;
-    padding: 20px 30px;
+    padding: 20px 30px 20px 15px;
     box-sizing: border-box;
+    @media ${maxWidth.XS}{
+        padding-left:30px;
+    }
 `
 
 export const InfoLeft = styled.div`
     color: white;
     /* border: 1px solid gray;
     border-radius: 15px; */
-    padding: 20px 30px;
+    padding: 20px 15px 20px 30px;
     box-sizing: border-box;
 `
 
@@ -149,7 +157,7 @@ export const ButtonGroup = styled.div`
     display:flex;
 `
 
-const ChartButton=styled.button`
+const ChartButton = styled.button`
     outline: none;
     border:1px solid gray;
     color:white;
@@ -157,10 +165,10 @@ const ChartButton=styled.button`
     width:50px;
     font-size:14px;
     border: 1px solid rgba(128, 128, 128, 0.4);
-    background-color: ${props => props.active ? "#2A37A4" : "#202841" };
+    background-color: ${props => props.active ? "#2A37A4" : "#202841"};
     margin-top:10px;
     &:hover{
-        background-color: ${props => props.active ? "#2A37A4" : "#323972" };
+        background-color: ${props => props.active ? "#2A37A4" : "#323972"};
     }
 `
 
@@ -197,7 +205,7 @@ export const WalletCoin = styled.div`
     color:white;
 `
 
-export const WalletInfoMain=styled.div`
+export const WalletInfoMain = styled.div`
     grid-column: span 3;
     display: flex;
     justify-content: space-between;
@@ -211,7 +219,7 @@ export const WalletInfoMain=styled.div`
     
 `
 
-export const WalletCoinTitle=styled.div`
+export const WalletCoinTitle = styled.div`
     align-items: center;
     display: flex;
 `

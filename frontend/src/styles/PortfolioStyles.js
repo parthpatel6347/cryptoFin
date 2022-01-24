@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { maxWidth } from "./size";
+
 
 export const Main = styled.div`
     margin-top: 10px;
@@ -25,11 +27,19 @@ export const ValuationContainer = styled.div`
     padding:20px;
     width: 100%;
     justify-content: space-between;
+    @media ${maxWidth.XS}{
+        flex-direction: column;
+        justify-content: unset;
+        align-items: center;
+    }
 `
 export const InfoContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media ${maxWidth.XS}{
+        margin:11px 0;
+    }
 `
 export const InfoHeader = styled.div`
     color: gray;
@@ -85,11 +95,19 @@ export const CoinContainer = styled.div`
         color: white;
         background-color: ${(props) => props.theme.colors.bgHover};
     }
+    @media ${maxWidth.XS}{
+        grid-template-columns:repeat(2, 1fr);
+    }
+
 `
-export const WalletCoinTitle=styled.div`
+export const WalletCoinTitle = styled.div`
     align-items: center;
     display: flex;
     grid-column: span 2;
+    @media ${maxWidth.XS}{
+        justify-self: center;
+        margin-bottom:20px;
+    }
 `
 
 export const BalanceContainer = styled.div`
@@ -97,6 +115,9 @@ export const BalanceContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-self: end;
+    @media ${maxWidth.XS}{
+        justify-self: center;
+    }
 `
 
 export const CoinBalance = styled.div`
@@ -115,6 +136,9 @@ export const PLContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-self: end;
+    @media ${maxWidth.XS}{
+        justify-self: center;
+    }
 `
 
 export const PLUsd = styled.div`

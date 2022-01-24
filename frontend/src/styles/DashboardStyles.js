@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
+import { maxWidth } from "./size";
 
 export const Main = styled.div`
     margin-top: 30px;
@@ -32,6 +32,18 @@ export const CoinContainer = styled(Link)`
         background-color:${(props) => props.theme.colors.bgHover};
 
     }
+    @media ${maxWidth.M}{
+        width: 90%;
+    }
+    @media ${maxWidth.S}{
+        grid-template-columns: repeat(9, 1fr);
+    }
+    @media ${maxWidth.XS}{
+        grid-template-columns: repeat(8, 1fr);
+    }
+    @media ${maxWidth.XXS}{
+        grid-template-columns: repeat(6, 1fr);
+    }
     `
 
 export const TableTitles = styled.div`
@@ -47,6 +59,18 @@ export const TableTitles = styled.div`
     color: #8D8D8D;
     align-items:center;
     justify-items: center;
+    @media ${maxWidth.M}{
+        width: 90%;
+    }
+    @media ${maxWidth.S}{
+        grid-template-columns: repeat(9, 1fr);
+    }
+    @media ${maxWidth.XS}{
+        grid-template-columns: repeat(8, 1fr);
+    }
+    @media ${maxWidth.XXS}{
+        grid-template-columns: repeat(6, 1fr);
+    }
 `
 
 export const CoinMain = styled.div`
@@ -62,7 +86,16 @@ export const CoinMainInner = styled.div`
 `
 
 export const GridITem = styled.div`
-    grid-column: span 2;
+    grid-column: ${props => props.for === "rank" ? "span 1" : "span 2"};
+    @media ${maxWidth.S}{
+        display: ${props => props.for === "7d" ? "none" : ""};
+    }
+    @media ${maxWidth.XS}{
+        display: ${props => props.for === "rank" ? "none" : ""};
+    }
+    @media ${maxWidth.XXS}{
+        display: ${props => props.for === "mcap" ? "none" : ""};
+    }
 `
 
 export const CoinImage = styled.img`
@@ -71,6 +104,9 @@ export const CoinImage = styled.img`
     border-radius: 15px;
     margin-left: 20px;
     margin-right: 10px;
+    @media ${maxWidth.XS}{
+        margin-left: 7px;
+    }
 `
 
 export const Symbol = styled.span`
