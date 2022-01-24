@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import { USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, WALLET_SUCCESS, WALLET_ERROR, LOGOUT } from '../types';
+import { USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, WALLET_SUCCESS, WALLET_ERROR, LOGOUT, CLEAR_ERRORS } from '../types';
 
 export default (state, action) => {
     switch (action.type) {
@@ -13,7 +13,8 @@ export default (state, action) => {
             };
         case REGISTER_SUCCESS:
             return {
-                ...state
+                ...state,
+                error: null
             }
         case LOGIN_SUCCESS:
             localStorage.setItem("token", action.payload.auth_token);
@@ -22,6 +23,7 @@ export default (state, action) => {
                 token: action.payload.auth_token,
                 isAuthenticated: true,
                 loading: false,
+                error: null
             };
         case WALLET_SUCCESS:
             return {
@@ -56,6 +58,11 @@ export default (state, action) => {
                 loading: false,
                 user: null,
                 error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
             };
         default:
             return state;

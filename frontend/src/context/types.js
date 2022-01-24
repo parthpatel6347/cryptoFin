@@ -7,3 +7,4 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const WALLET_SUCCESS = "WALLET_SUCCESS";
 export const WALLET_ERROR = "WALLET_ERROR";
 export const LOGOUT = "LOGOUT";
+export const CLEAR_ERRORS = "CLEAR_ERRORS"

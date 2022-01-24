@@ -11,6 +11,7 @@ import Portfolio from './views/Portfolio';
 import PrivateRoute from './views/PrivateRoute';
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
+import NotFound from './views/NotFound';
 
 
 
@@ -27,13 +28,13 @@ const App = () => {
           <Navbar/>
           <Routes>
             <Route path='/login' element={<Login/>} exact />
-            <Route path='/logout' element={<Logout/>} exact />
             <Route path='/register' element={<Register/>} exact />
             <Route path='/coins/:id' element={<Coin/>} exact />
             <Route path='/portfolio' element={<PrivateRoute/>} exact >
               <Route path='/portfolio' element={<Portfolio/>} exact />
             </Route>     
             <Route path='/dashboard' element={<Dashboard/>} exact />
+            <Route path='*' element={<NotFound/>}/>
           </Routes>
           </div>
           </Fragment>

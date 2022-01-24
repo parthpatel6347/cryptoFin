@@ -10,14 +10,15 @@ const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, error, isAuthenticated, loadUser, token } = useContext(authContext)
+  const { login, error, isAuthenticated, loadUser, token, clearErrors } = useContext(authContext)
   let navigate = useNavigate();
 
   useEffect(() => {
+    clearErrors()
     if (token) {
       loadUser().then(() => navigate('/dashboard'));
     }
-  }, [error, isAuthenticated, props]);
+  }, [token]);
 
   const onSubmit = e => {
     e.preventDefault();

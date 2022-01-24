@@ -4,7 +4,7 @@ import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 
 
-import { USER_LOADED, AUTH_ERROR, REGISTER_FAIL, REGISTER_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, WALLET_ERROR, WALLET_SUCCESS, LOGOUT } from '../types';
+import { USER_LOADED, AUTH_ERROR, REGISTER_FAIL, REGISTER_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, WALLET_ERROR, WALLET_SUCCESS, LOGOUT, CLEAR_ERRORS } from '../types';
 
 
 const setHeaderToken = (token) => {
@@ -86,11 +86,14 @@ function AuthState(props) {
             .then(res => {
                 dispatch({ type: LOGOUT });
             })
+    };
 
+    const clearErrors = () => {
+        dispatch({ type: CLEAR_ERRORS });
     };
 
     return (
-        <AuthContext.Provider value={{ ...state, loadUser, register, login, getWallet, logout }}>
+        <AuthContext.Provider value={{ ...state, loadUser, register, login, getWallet, logout, clearErrors }}>
             {props.children}
         </AuthContext.Provider>
     );

@@ -16,6 +16,11 @@ code {
 
 .modal-content{
   background-color: #181D1F !important;
+  box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+}
+
+.modal-backdrop{
+  opacity:.7 !important;
 }
 
 .modal-dialog{

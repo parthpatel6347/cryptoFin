@@ -16,11 +16,11 @@ const Register = (props) => {
 
   let navigate = useNavigate();
 
-  const { register, error, isAuthenticated } = useContext(authContext)
+  const { register, error, isAuthenticated, token, loadUser } = useContext(authContext)
 
   useEffect(() => {
-    if (isAuthenticated) {
-      window.location.replace('http://localhost:3000/dashboard');
+    if (token) {
+      loadUser().then(() => navigate('/dashboard'));
     }
 
     if (error) {
@@ -30,7 +30,7 @@ const Register = (props) => {
       }
       setErrors(e)
     }
-  }, [error, isAuthenticated, props]);
+  }, [error, isAuthenticated]);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const Register = (props) => {
       last_name: lastName,
     }).then(res => {
       if (res === "success") {
-        navigate('/login')
+        navigate('/login');
       } else {
         setFirstName('')
         setLastName('')
