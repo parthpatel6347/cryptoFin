@@ -29,16 +29,16 @@ function Dashboard(props) {
       {loading === false && loadingCoins === false ? (
         <Fragment>
           <TableTitles>
-            <GridITem for={"rank"}>Rank</GridITem>
+            <GridITem val={"rank"}>Rank</GridITem>
             <GridITem>Name</GridITem>
             <GridITem>Price</GridITem>
             <GridITem>24h %</GridITem>
-            <GridITem for={"7d"}>7d %</GridITem>
-            <GridITem for={"mcap"}>Market Cap</GridITem>
+            <GridITem val={"7d"}>7d %</GridITem>
+            <GridITem val={"mcap"}>Market Cap</GridITem>
           </TableTitles>
           {coinList.map(coin => (
             <CoinContainer to={`/coins/${coin.id}`} key={coin.id}>
-              <GridITem for={"rank"}>{coin.market_cap_rank}</GridITem>
+              <GridITem val={"rank"}>{coin.market_cap_rank}</GridITem>
               <CoinMain>
                 <CoinImage src={coin.image} />
                 <CoinMainInner>
@@ -54,14 +54,14 @@ function Dashboard(props) {
                   <ChangePos><FontAwesomeIcon icon={faAngleUp} style={{ marginRight: "3px" }} />{(coin.price_change_percentage_24h).toFixed(2)}%</ChangePos>
                 )}
               </GridITem>
-              <GridITem for={"7d"}>
+              <GridITem val={"7d"}>
                 {coin.price_change_percentage_7d_in_currency < 0 ? (
                   <ChangeNeg><FontAwesomeIcon icon={faAngleDown} style={{ marginRight: "3px" }} />{(Math.abs(coin.price_change_percentage_7d_in_currency)).toFixed(2)}%</ChangeNeg>
                 ) : (
                   <ChangePos><FontAwesomeIcon icon={faAngleUp} style={{ marginRight: "3px" }} />{(coin.price_change_percentage_7d_in_currency).toFixed(2)}%</ChangePos>
                 )}
               </GridITem>
-              <GridITem for={"mcap"}>{formatUSDWhole.format(coin.market_cap)}</GridITem>
+              <GridITem val={"mcap"}>{formatUSDWhole.format(coin.market_cap)}</GridITem>
             </CoinContainer>
           ))}
         </Fragment>

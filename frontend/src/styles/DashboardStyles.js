@@ -86,15 +86,15 @@ export const CoinMainInner = styled.div`
 `
 
 export const GridITem = styled.div`
-    grid-column: ${props => props.for === "rank" ? "span 1" : "span 2"};
+    grid-column: ${props => props.val === "rank" ? "span 1" : "span 2"};
     @media ${maxWidth.S}{
-        display: ${props => props.for === "7d" ? "none" : ""};
+        display: ${props => props.val === "7d" ? "none" : ""};
     }
     @media ${maxWidth.XS}{
-        display: ${props => props.for === "rank" ? "none" : ""};
+        display: ${props => props.val === "rank" ? "none" : ""};
     }
     @media ${maxWidth.XXS}{
-        display: ${props => props.for === "mcap" ? "none" : ""};
+        display: ${props => props.val === "mcap" ? "none" : ""};
     }
 `
 

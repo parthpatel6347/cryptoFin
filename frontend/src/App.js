@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AuthState from './context/auth/AuthState';
 import Login from './views/auth/Login';
@@ -27,6 +27,7 @@ const App = () => {
         <div className='App'>
           <Navbar/>
           <Routes>
+            <Route path="/" element={<Navigate replace to="/dashboard" />}/>
             <Route path='/login' element={<Login/>} exact />
             <Route path='/register' element={<Register/>} exact />
             <Route path='/coins/:id' element={<Coin/>} exact />
