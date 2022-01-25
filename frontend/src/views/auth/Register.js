@@ -6,31 +6,39 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Register = (props) => {
+
+  // States for Register form fields 
   const [email, setEmail] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
   const [errors, setErrors] = useState([])
 
   let navigate = useNavigate();
 
-  const { register, error, isAuthenticated, token, loadUser } = useContext(authContext)
+  const { register, error, isAuthenticated, token, loadUser, clearErrors } = useContext(authContext)
 
   useEffect(() => {
+    clearErrors();
+    // if there is a token in localstorage, load that user and redirect to dashboard
     if (token) {
       loadUser().then(() => navigate('/dashboard'));
     }
+  }, [token]);
 
+  useEffect(() => {
+    // if error, prepare a array of error description and set to 'errors' state
     if (error) {
       let e = []
       for (let key in error) {
         error[key].forEach(err => e.push(err))
       }
-      setErrors(e)
+      setErrors(e);
     }
-  }, [error, isAuthenticated]);
+  }, [error])
 
   const onSubmit = e => {
     e.preventDefault();

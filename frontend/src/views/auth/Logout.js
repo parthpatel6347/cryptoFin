@@ -1,15 +1,14 @@
-import axios from 'axios';
-import React, { useState, useEffect, Fragment, useContext } from 'react';
+import React, { useEffect, Fragment, useContext } from 'react';
 import authContext from '../../context/auth/authContext';
-import { CustomButton } from '../../styles/CoinStyles';
 import { LogoutButton, Main, StyledText } from '../../styles/LogoutStyles';
 
 const Logout = () => {
-  // const [loading, setLoading] = useState(true);
 
   const { logout, loading } = useContext(authContext)
 
+
   useEffect(() => {
+    // If there is no token, redirect to login
     if (localStorage.getItem('token') == null) {
       window.location.replace('http://localhost:3000/login');
     }

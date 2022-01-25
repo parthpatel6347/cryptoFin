@@ -3,18 +3,20 @@ import authContext from '../../context/auth/authContext';
 import { useNavigate } from 'react-router-dom';
 import { ErrorText, FormContainer, HeaderText, Main, SubmitButton } from '../../styles/Login.Styles';
 import { Form } from 'react-bootstrap'
-import { CustomButton } from '../../styles/CoinStyles';
 
 const Login = (props) => {
 
+  // State for form fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, error, isAuthenticated, loadUser, token, clearErrors } = useContext(authContext)
   let navigate = useNavigate();
+
+  const { login, error, loadUser, token, clearErrors } = useContext(authContext)
 
   useEffect(() => {
     clearErrors()
+    // if token in local storage, load user and redirect to dashboard
     if (token) {
       loadUser().then(() => navigate('/dashboard'));
     }

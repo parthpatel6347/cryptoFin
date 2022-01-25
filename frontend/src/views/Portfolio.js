@@ -9,15 +9,39 @@ import { Link } from 'react-router-dom';
 
 
 import authContext from '../context/auth/authContext';
-import { BalanceContainer, ChartContainer, ChartInner, CoinBalance, CoinContainer, ContentContainer, HeaderTitle, InfoContainer, InfoContent, InfoGreen, InfoHeader, InfoRed, Main, PLContainer, PLPctg, PLPctgGreen, PLPctgRed, PLUsd, PLUsdGreen, PLUsdRed, UsdBalance, ValuationContainer, WalletCoinTitle } from '../styles/PortfolioStyles';
-import { formatUSD } from '../utils';
+import {
+    BalanceContainer,
+    ChartContainer,
+    ChartInner,
+    CoinBalance,
+    CoinContainer,
+    ContentContainer,
+    HeaderTitle,
+    InfoContainer,
+    InfoContent,
+    InfoGreen,
+    InfoHeader,
+    InfoRed,
+    Main,
+    PLContainer,
+    PLPctgGreen,
+    PLPctgRed,
+    PLUsdGreen,
+    PLUsdRed,
+    UsdBalance,
+    ValuationContainer,
+    WalletCoinTitle
+} from '../styles/PortfolioStyles';
 import { WalletCoinImg, WalletCoinSymbol } from '../styles/CoinStyles';
 import Loading from './Loading';
+import { formatUSD } from '../utils';
+
 
 let colors = ["#ADADAD", "#5663BC", "#00ABE5", "#51B994", "#8DB35A", "#F56303", "#D21E24", "#00D194", "#E6007A", "#328332", "#FF9900"]
 
 
 function Portfolio(props) {
+    // state for getting coins data
     const [coinList, setCoinList] = useState([])
     const [loadingCoinData, setLoadingCoinData] = useState(true);
 
@@ -41,6 +65,7 @@ function Portfolio(props) {
         }
     }, [user])
 
+    // Calculate current value of investments of the user
     const currentValuation = () => {
         if (loading === false && loadingCoinData === false) {
             let currentHolding = wallet.reduce((sum, current) => {
@@ -53,7 +78,7 @@ function Portfolio(props) {
     }
 
 
-
+    // Calculate initial investment amount for the user
     const investmentAmount = () => {
         if (loading === false && loadingCoinData === false) {
             let initial = wallet.reduce((sum, current) => {
@@ -64,10 +89,12 @@ function Portfolio(props) {
         }
     }
 
+    // Calculate profit/loss percentage
     const percentPL = () => {
         return (currentValuation() / investmentAmount() * 100) - 100
     }
 
+    // generate chart data
     const genChartData = () => {
         let chartData = {
             labels: ["Cash"],

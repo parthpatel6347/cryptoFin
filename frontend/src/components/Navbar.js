@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useContext } from 'react';
+import React, { useState, Fragment, useContext } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import authContext from '../context/auth/authContext';
@@ -7,8 +7,10 @@ import Logout from '../views/auth/Logout';
 
 
 const Navbar = () => {
+  // State for visibility of logout modal
   const [show, setShow] = useState(false)
 
+  // logout modal show and hide
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 

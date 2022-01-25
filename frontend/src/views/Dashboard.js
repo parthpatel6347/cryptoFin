@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState, Fragment, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import authContext from '../context/auth/authContext';
 import { CoinContainer, CoinMain, CoinMainInner, GridITem, Main, TableTitles, CoinImage, Symbol, ChangeNeg, ChangePos } from '../styles/DashboardStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,13 +9,16 @@ import Loading from "./Loading"
 
 
 function Dashboard(props) {
+  // state for saving coins data
   const [coinList, setCoinList] = useState([])
   const [loadingCoins, setLoadingCoins] = useState(true)
-  const { loadUser, error, isAuthenticated, loading, user } = useContext(authContext)
+
+  const { loadUser, loading } = useContext(authContext)
 
   useEffect(() => {
     loadUser();
 
+    // get coin data from api
     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h%2C7d')
       .then(res => {
         setCoinList(res.data)
