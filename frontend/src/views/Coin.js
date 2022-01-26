@@ -44,7 +44,7 @@ function Coin(props) {
 
     let { id } = useParams();
 
-    const { loadUser, isAuthenticated, user, walletLoading, wallet, getWallet } = useContext(authContext)
+    const { loadUser, isAuthenticated, user, walletLoading, wallet, getWallet, token } = useContext(authContext)
 
 
     useEffect(() => {
@@ -56,7 +56,9 @@ function Coin(props) {
             })
             .catch(err => setCoinError(true)) //if no coin was found set coinError to true
 
-        loadUser()
+        if (token) {
+            loadUser()
+        }
     }, [])
 
     useEffect(() => {

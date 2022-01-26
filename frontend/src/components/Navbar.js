@@ -34,8 +34,10 @@ const Navbar = () => {
           ) : (
             <Fragment>
               {' '}
-              <NavLink to='/login'>Login</NavLink>
-              <NavLink to='/register'>Register</NavLink>
+              <NavLink to='/dashboard' active={location.pathname === "/dashboard" ? "true" : "false"}>Dashboard</NavLink>
+
+              <NavLink to='/login' active={location.pathname === "/login" ? "true" : "false"}>Login</NavLink>
+              <NavLink to='/register' active={location.pathname === "/register" ? "true" : "false"}>Register</NavLink>
             </Fragment>
           )}
         </NavLinksContainer>

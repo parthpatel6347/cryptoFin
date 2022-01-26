@@ -31,7 +31,7 @@ const Register = (props) => {
 
   useEffect(() => {
     // if error, prepare a array of error description and set to 'errors' state
-    if (error) {
+    if (error !== null) {
       let e = []
       for (let key in error) {
         error[key].forEach(err => e.push(err))

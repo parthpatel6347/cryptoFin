@@ -42,13 +42,13 @@ let colors = ["#ADADAD", "#5663BC", "#00ABE5", "#51B994", "#8DB35A", "#F56303", 
 
 function Portfolio(props) {
     // state for getting coins data
-    const [coinList, setCoinList] = useState([])
+    const [coinList, setCoinList] = useState([]);
     const [loadingCoinData, setLoadingCoinData] = useState(true);
 
     const { loadUser, isAuthenticated, loading, user, walletLoading, wallet, getWallet } = useContext(authContext);
 
     useEffect(() => {
-        loadUser()
+        loadUser();
 
         // Get coins data
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h')
@@ -159,7 +159,7 @@ function Portfolio(props) {
                         />
                     </ChartInner>
                 </ChartContainer>
-                <HeaderTitle>Wallet</HeaderTitle>
+                <HeaderTitle>{wallet.length ? "Wallet" : ""}</HeaderTitle>
                 {wallet.map(userCoin => (
                     coinList.map(coin => coin.id === userCoin.symbol && (
                         <CoinContainer as={Link} to={`/coins/${coin.id}`} key={coin.id}>

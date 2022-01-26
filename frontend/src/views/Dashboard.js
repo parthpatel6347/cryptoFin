@@ -13,10 +13,12 @@ function Dashboard(props) {
   const [coinList, setCoinList] = useState([])
   const [loadingCoins, setLoadingCoins] = useState(true)
 
-  const { loadUser, loading } = useContext(authContext)
+  const { loadUser, token } = useContext(authContext)
 
   useEffect(() => {
-    loadUser();
+    if (token) {
+      loadUser();
+    }
 
     // get coin data from api
     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h%2C7d')
@@ -28,7 +30,7 @@ function Dashboard(props) {
 
   return (
     <Main>
-      {loading === false && loadingCoins === false ? (
+      {loadingCoins === false ? (
         <Fragment>
           <TableTitles>
             <GridITem val={"rank"}>Rank</GridITem>
