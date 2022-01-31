@@ -4,6 +4,7 @@ import { maxWidth } from "./size";
 
 export const Main = styled.div`
     margin-top: 30px;
+    margin-bottom: 20px;
     display: flex;
     width: 100%;
     flex-direction: column;

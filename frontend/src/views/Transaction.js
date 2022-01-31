@@ -118,7 +118,7 @@ function Transaction({ coinData, user, userCoin }) {
                     <Form onSubmit={handleSell}>
                         <Form.Group className="mb-3">
                             <Form.Label>Enter {(coinData.symbol).toUpperCase()} amount</Form.Label>
-                            <Form.Text >{" "}Max:{(userCoin.holding_qty).toFixed(5)}</Form.Text>
+                            <Form.Text >{" "}Max:{(userCoin !== undefined ? userCoin.holding_qty : 0).toFixed(5)}</Form.Text>
                             <Form.Control className="mb-2" type='number' name='sellQty' value={sellQty} onChange={e => setSellQty(e.target.value)} min={0} max={userCoin !== undefined ? userCoin.holding_qty : 0} step="0.01"></Form.Control>
                             <Form.Text>{formatUSD.format(sellQty * coinData.market_data.current_price.usd)}</Form.Text>
                         </Form.Group>
